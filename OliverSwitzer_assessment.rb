@@ -156,10 +156,9 @@ class School
 
 	#c
 	attr_accessor :name, :location, :instructors, :students
-	attr_reader :ranking
+	attr_reader :ranking, :schools
 
-	#g.  (NOTE: I don't know how to reset constants so I made schools a variable) 
-	@@schools  = []
+	
 
 	#b i-iii
 	def initialize(name, location, instructors, students, ranking)
@@ -168,12 +167,16 @@ class School
 		@instructors = instructors
 		@students = students
 		@ranking = ranking
-		@@schools << self
+		#g.  (NOTE: I don't know how to reset constants or access class variables
+		 # so I made schools an instance variable) 
+		@schools  = []
+		@schools << self
 	end
 
 	#d
 	def set_ranking rank
 		@ranking = rank
+		@ranking
 	end
 
 	#e
@@ -184,26 +187,172 @@ class School
 	#f
 	def rm_student name
 		@students.each_with_index do |student_hash, i|
-			if @students[:name] == "#{name}"
+			if student_hash[:name] == "#{name}"
 				@students.delete_at(i)
 			end
 		end
+		@students
 	end
 
 	#h
 	def reset 
-		@@schools = []
+		@schools = []
 	end
 	
 end
 
 
 
-# #a
-# flatiron = School.new(school[:name],school[:location],school[:instructors], school[:students], 2013)
+# b. iii
+flatiron = School.new(school[:name],school[:location],school[:instructors], school[:students], 1)
 
 
-# puts flatiron.return_student_with_grade("B")
+#d
+puts "5-d"
+puts flatiron.set_ranking(2)
+
+#e
+puts "5-e"
+puts flatiron.add_student("Oliver", "Z-", "Winter")
+
+#f
+puts "5-f"
+puts flatiron.rm_student("Bob")
+
+#h
+puts "5-h"
+puts flatiron.schools
+puts flatiron.reset
+puts flatiron.schools.inspect
+
+#6 Classes
+
+#a. 
+class Student
+
+	attr_accessor :name, :grade, :semester
+
+	def initialize name, grade, semester
+		@name = name
+		@grade = grade
+		@semester = semester
+	end
+end
+
+class SchoolRefactored 
+
+	attr_accessor :name, :location, :instructors, :students
+	attr_reader :ranking, :schools
+
+	
+	def initialize(name, location, instructors, students, ranking)
+		@name = name
+		@location = location
+		@instructors = instructors
+		@students = students
+		@ranking = ranking
+		 
+		@schools  = []
+		@schools << self
+	end
+
+	def find_student student_name
+		student_return = @students.select {|student| student.name == student_name}
+		student_return[0]
+	end
+
+end
+
+student_objects = []
+
+school[:students].each do |student_hash|
+	student_objects << Student.new(student_hash[:name], student_hash[:grade], student_hash[:semester])
+end
+
+puts student_objects
+
+flatiron_refact = SchoolRefactored.new(school[:name],school[:location], school[:instructors], student_objects, 1)
+
+#c 
+puts "6-c"
+puts "Here's the student object of Marissa"
+puts flatiron_refact.find_student("Marissa")
+
+#7. Self
 
 
+  # a.What should this Class print to the screen when defined/loaded?
+
+  # ```ruby
+  # class Student
+
+  #   def self.say_hello
+  #     puts "hello"
+  #   end
+
+  #   say_hello
+  #   puts self
+
+  # end
+  # ```
+
+  # b. What should this Class print to the screen when defined/loaded?
+
+  # ```ruby
+  # class Student
+
+  #   def self.say_hello
+  #     puts self
+  #   end
+
+  #   say_hello
+
+  # end
+  # ```
+
+  # c. What should this Class print to the screen when defined/loaded?
+
+  # ```ruby
+  # class Student
+
+  #   def initialize
+  #     puts self
+  #   end
+
+  #   new
+
+  # end
+  # ```
+
+  # d. What should this code print to the screen when run?
+
+  # ```ruby
+  # class Student
+
+  #   def say_hello
+  #     puts self
+  #   end
+
+  # end
+  # ```
+
+  # Student.new.say_hello
+
+  # e. What should this code print to the screen when run?
+
+  # ```ruby
+  # class Student
+
+  #   def say_hello
+  #     puts say_goodbye
+  #   end
+
+  #   def say_goodbye
+  #     "goodbye"
+  #   end
+
+  # end
+  # ```
+
+  # Student.new.say_hello
 
