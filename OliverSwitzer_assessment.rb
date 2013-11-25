@@ -295,6 +295,8 @@ puts flatiron_refact.find_student("Marissa")
 
   # end
   # ```
+ 
+  # -->  It will say "hello" and then Student underneath that
 
   # b. What should this Class print to the screen when defined/loaded?
 
@@ -310,6 +312,8 @@ puts flatiron_refact.find_student("Marissa")
   # end
   # ```
 
+  # --> It will say "Student"
+
   # c. What should this Class print to the screen when defined/loaded?
 
   # ```ruby
@@ -324,6 +328,8 @@ puts flatiron_refact.find_student("Marissa")
   # end
   # ```
 
+  # --> It will print out the object ID of the new student object
+
   # d. What should this code print to the screen when run?
 
   # ```ruby
@@ -337,6 +343,8 @@ puts flatiron_refact.find_student("Marissa")
   # ```
 
   # Student.new.say_hello
+
+  # --> It will print "Student"
 
   # e. What should this code print to the screen when run?
 
@@ -355,4 +363,8 @@ puts flatiron_refact.find_student("Marissa")
   # ```
 
   # Student.new.say_hello
+
+  # --> it will puts "goodbye"
+
+  
 
