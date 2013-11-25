@@ -60,31 +60,128 @@ end
 school[:instructors][1][:subject] = "being almost better than Blake"
 ap school
 
+#f
+school[:students].each do |student_hash|
+	if student_hash[:name] == "Frank"
+		student_hash[:grade] = "F"
+	end
+end
 
+#g
+puts "3-g."
+school[:students].each do |student_hash|
+	if student_hash[:grade] == "B"
+		puts student_hash[:name]
+	end
+end
 
+#h
+puts "3-h."
+school[:instructors].each do |instructor_hash|
+	if instructor_hash[:name] == "Jeff"
+		puts instructor_hash[:subject]
+	end
+end
 
+#i
+puts "3-i. "
+puts school[:name]
+puts school[:location]
 
+school[:instructors].each do |instructor_hash|
+	instructor_hash.each do |k, v|
+		puts v
+	end
+end
+
+school[:students].each do |student_hash|
+	student_hash.each do |k, v|
+		puts v
+	end
+end
+
+puts school[:ranking]
+
+#4 Methods
+#a
+def return_grade student_name, school
+	school[:students].each do |student_hash|
+		if student_hash[:name] == student_name
+			return student_hash[:grade]
+		end
+	end
+end
+#b
+def change_subject instructor, subject, school
+	school[:instructors].each do |instructor_hash|
+		instructor_hash.each do |key, value|
+			if key == :name && value == instructor
+				instructor_hash[:subject] = subject
+			end
+		end
+	end
+	school[:instructors]
+end
+#c
+def add_student name, grade, semester, school
+	school[:students] << {:name => "#{name}", :grade => "#{grade}", :semester => "#{semester}"}
+	school[:students]
+end
+#d
+def add_key key, value, school
+	school[key] = value
+	return school
+end
+
+puts "4-a"
+puts return_grade("Marissa", school)
+
+puts "4-b"
+puts change_subject("Blake", "being terrible", school)
+
+puts "4-c"
+puts add_student("Oliver", "Z+", "Winter", school)
+
+puts "4-d"
+puts add_key(:Ranking, "1", school)
 
 #5. Object Orientation
+puts "_"*50
+puts "5. Object Orientation"
 
+
+
+#a
 class School 
 
-	attr_accessor :name, :location, :instructors, :students, :founded_in
+	#c
+	attr_accessor :name, :location, :instructors, :students
+	attr_reader :ranking
 
-	def initialize(name, location, instructors, students, founded_in)
+	#g.  (NOTE: I don't know how to reset constants so I made schools a variable) 
+	@@schools  = []
+
+	#b i-iii
+	def initialize(name, location, instructors, students, ranking)
 		@name = name
 		@location = location
 		@instructors = instructors
 		@students = students
-		@founded_in = founded_in
+		@ranking = ranking
+		@@schools << self
 	end
 
-	#b
-	def add_student name, grade
-		@students << {:name => "#{name}", :grade => "#{grade}"}
+	#d
+	def set_ranking rank
+		@ranking = rank
 	end
 
-	#c
+	#e
+	def add_student name, grade, semester
+		@students << {:name => "#{name}", :grade => "#{grade}", :semester => "#{semester}"}
+	end
+
+	#f
 	def rm_student name
 		@students.each_with_index do |student_hash, i|
 			if @students[:name] == "#{name}"
@@ -93,82 +190,20 @@ class School
 		end
 	end
 
-	#d
-	def add_semester semester
-		@students.each do |student_hash|
-			student_hash[:semester] = "#{semester}"
-		end
+	#h
+	def reset 
+		@@schools = []
 	end
-
-	#e 
-	def change_subject instructor, subject
-		@instructors.each do |instructor_hash|
-			instructor_hash.each do |key, value|
-				if key == :name && value == instructor
-					@instructors[instructor_hash][:subject] = subject
-				end
-			end
-		end
-	end
-
-	#f
-	def change_grade student_name, new_grade
-		@students.each do |student_hash|
-			if student_hash[:name] == student_name
-				student_hash[:grade] = new_grade
-			end
-		end
-	end
-
-	#g
-	def return_student_with_grade grade
-		@students.each do |student_hash|
-			if student_hash[:grade] == grade
-				return student_hash[:name]
-			end
-		end
-		
-	end
-
-	#h 
-	def return_subject instructor
-		subj = ""
-		@instructors.each do |instructor_hash|
-			if instructor_hash[:name] == instructor
-				subj = instructor_hash[:subject]
-			end
-		end
-		subj
-	end
-	#i
-	def return_all_values
-		puts @name
-		puts @location
-
-		@instructors.each do |instructor_hash|
-			instructor_hash.each do |k, v|
-				puts v
-			end
-		end
-
-		@students.each do |student_hash|
-			student_hash.each do |k, v|
-				puts v
-			end
-		end
-
-		puts @ranking
-	end
-
+	
 end
 
 
 
-#a
-flatiron = School.new(school[:name],school[:location],school[:instructors], school[:students], 2013)
+# #a
+# flatiron = School.new(school[:name],school[:location],school[:instructors], school[:students], 2013)
 
 
-puts flatiron.return_student_with_grade("B")
+# puts flatiron.return_student_with_grade("B")
 
 
 
